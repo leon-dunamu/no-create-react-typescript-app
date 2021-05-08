@@ -30,6 +30,11 @@ $ git clone https://github.com/1Seok2/no-create-react-typescript-app.git <YOUR_P
 
   ```bash
   git clone https://github.com/1Seok2/no-create-react-typescript-app.git my-react-app
+
+  $ cd my-react-app
+  $ npm install
+
+  $ npm run start
   ```
 
 ## AFTER CLONING
