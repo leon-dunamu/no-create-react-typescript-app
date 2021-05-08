@@ -5,12 +5,12 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
-const isDevelopment = process.env.NODE_ENV !== 'production';
+const isDevelopment = process.env.NODE_ENV === 'development';
 const webpack = require('webpack');
 
 module.exports = {
   mode: isDevelopment ? 'development' : 'production',
-  target: process.env.NODE_ENV === 'development' ? 'web' : 'browserslist',
+  target: isDevelopment ? 'web' : 'browserslist',
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', 'scss'],
     alias: {
