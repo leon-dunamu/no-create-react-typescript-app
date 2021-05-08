@@ -12,7 +12,7 @@ function App() {
         fontSize: '24px',
       }}
     >
-      Customize Your React App !
+      Customize Your React App!
     </div>
   );
 }

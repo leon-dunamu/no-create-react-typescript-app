@@ -3,17 +3,25 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
+const isDevelopment = process.env.NODE_ENV !== 'production';
 const webpack = require('webpack');
 
 module.exports = {
-  mode: 'development',
+  mode: isDevelopment ? 'development' : 'production',
+  target: process.env.NODE_ENV === 'development' ? 'web' : 'browserslist',
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js', '.jsx', 'scss'],
+    alias: {
+      root: __dirname,
+      src: path.resolve(__dirname, 'src'),
+    },
+    modules: [path.join(__dirname, 'src'), 'node_modules'],
+  },
+  devtool: 'inline-source-map',
   entry: {
     main: './src/index.tsx',
-  },
-  output: {
-    filename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'dist'),
   },
   module: {
     rules: [
@@ -26,27 +34,38 @@ module.exports = {
         use: ['file-loader'],
       },
       {
-        test: /\.tsx?$/,
-        loader: 'ts-loader',
-        exclude: /node_modules/,
+        test: /\.[jt]sx?$/,
+        exclude: path.join(__dirname, 'node_modules'),
+        loader: 'babel-loader',
+        options: {
+          presets: [
+            [
+              '@babel/preset-env',
+              {
+                targets: {
+                  browsers: ['> 1% in KR'],
+                },
+                debug: true,
+              },
+            ],
+            '@babel/preset-react',
+            '@babel/typescript',
+          ],
+          plugins: [
+            '@babel/plugin-transform-runtime',
+            [
+              'module-resolver',
+              {
+                alias: {
+                  '~/*': './src',
+                },
+              },
+            ],
+            'react-refresh/babel',
+          ],
+        },
       },
     ],
-  },
-  resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx', 'scss'],
-    alias: {
-      root: __dirname,
-      src: path.resolve(__dirname, 'src'),
-    },
-    modules: [path.join(__dirname, 'src'), 'node_modules'],
-  },
-  devtool: 'inline-source-map',
-  devServer: {
-    contentBase: '/dist/',
-    noInfo: true,
-    open: true,
-    port: 5000,
-    historyApiFallback: true,
   },
   plugins: [
     new CleanWebpackPlugin(),
@@ -58,7 +77,29 @@ module.exports = {
       filename: '[name].css',
       chunkFilename: '[id].css',
     }),
-    new webpack.HotModuleReplacementPlugin(),
     new ForkTsCheckerWebpackPlugin(),
+    isDevelopment && new webpack.HotModuleReplacementPlugin(),
+    isDevelopment && new ReactRefreshWebpackPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('development'),
+      },
+    }),
   ],
+  output: {
+    filename: '[name].bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/dist/',
+  },
+  devServer: {
+    contentBase: path.join(__dirname, 'dist'),
+    publicPath: '/dist/',
+    noInfo: true,
+    port: 3000,
+    hot: true,
+    writeToDisk: true,
+    historyApiFallback: true,
+    liveReload: true,
+    watchContentBase: true,
+  },
 };
