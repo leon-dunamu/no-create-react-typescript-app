@@ -10,11 +10,11 @@ You can easily customize your app without CRA.
 
 It contains `ONLY BASIC SETTING` for `REACT TYPESCRIPT APP`
 
-- React + Typescript + Webpack + Babel + Scss(Css)
+- React + Typescript + Webpack + Babel + Scss(Css) + HMR ...
 
 ## WHO NEEDS?
 
-Anyone who does not want to use "create-react-app" anymore,
+Anyone who does not want to use `create-react-app` anymore,
 
 Anyone who wants to quickly add own settings,
 
@@ -39,7 +39,6 @@ $ git clone https://github.com/1Seok2/no-create-react-typescript-app.git
 │     │  ├─ App.css
 │     │  ├─ App.tsx
 │     │  └─ index.tsx
-│     ├─.babelrc
 │     ├─.gitignore
 │     ├─.prettierrc
 │     ├─package.json
@@ -53,7 +52,7 @@ $ git clone https://github.com/1Seok2/no-create-react-typescript-app.git
 ### Start
 
 ```bash
-$ npm run start # turn no webpack server localhost:5000
+$ npm run start # turn no webpack server localhost:3000
 ```
 
 ### Build
