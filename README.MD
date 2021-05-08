@@ -23,28 +23,31 @@ Anyone who wants to organize the app more freely.
 ## HOW TO USE
 
 ```bash
-$ cd <project_root>
-
-$ git clone https://github.com/1Seok2/no-create-react-typescript-app.git
+$ git clone https://github.com/1Seok2/no-create-react-typescript-app.git <YOUR_PROJECT_NAME>
 ```
+
+- EXAMPLE
+
+  ```bash
+  git clone https://github.com/1Seok2/no-create-react-typescript-app.git my-react-app
+  ```
 
 ## AFTER CLONING
 
 ```text
-├─<project_root>
-│  └─[no-create-react-typescript-app]
-│     ├─public
-│     │      index.html
-│     ├─src
-│     │  ├─ App.css
-│     │  ├─ App.tsx
-│     │  └─ index.tsx
-│     ├─.gitignore
-│     ├─.prettierrc
-│     ├─package.json
-│     ├─README.MD
-│     ├─tsconfig.json
-│     └─webpack.config.js
+├─[PROJECT_NAME]
+│  ├─public
+│  │  └─ index.html
+│  ├─src
+│  │  ├─ App.css
+│  │  ├─ App.tsx
+│  │  └─ index.tsx
+│  ├─.gitignore
+│  ├─.prettierrc
+│  ├─package.json
+│  ├─README.MD
+│  ├─tsconfig.json
+│  └─webpack.config.js
 ```
 
 ## RUN
